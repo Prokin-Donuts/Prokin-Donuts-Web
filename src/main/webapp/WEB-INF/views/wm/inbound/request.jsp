@@ -68,8 +68,6 @@
                                 <!-- 오른쪽: 등록/수정/삭제 -->
                                 <div class="btu-group-1 d-flex gap-2">
                                     <button class="main-btn warning-btn-outline btn-hover btn-sm btn-xs" id="btnInboundAdd">입고 요청</button>
-                                    <!-- <button class="main-btn warning-btn-outline btn-hover btn-sm btn-xs" id="btnMemberEdit">수정</button>
-                                    <button class="main-btn warning-btn-outline btn-hover btn-sm btn-xs" id="btnMemberDelete">삭제</button> -->
                                 </div>
                             </div>
                         </div>
@@ -85,8 +83,19 @@
                                     <th>보관타입</th>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <c:forEach var="product" items="${product}">
+                                        <tr>
+                                            <td></td>
+                                            <td>${product.productCode}</td>
+                                            <td>${product.productName}</td>
+                                            <td>${product.productPrice}</td>
+                                            <td>${product.storedType}</td>
+
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -95,6 +104,7 @@
 
             <!-- Modal HTML Start -->
             <!-- 입고 요청 모달 -->
+            <form id="inboundForm" method="post" action="/inbound/request">
             <div class="modal fade" id="addInboundModal" tabindex="-1" role="dialog" aria-labelledby="addInboundModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document"> <!-- modal-lg: 큰 창 -->
                     <div class="modal-content">
@@ -102,7 +112,7 @@
                             <h5 class="modal-title">입고 요청 확인</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                            </button>
+
                         </div>
                         <div class="modal-body">
                             <p>수량과 입고 날짜를 선택하고 입고요청 완료 버튼을 클릭하세요.</p>
@@ -129,12 +139,6 @@
                                 <input type="date" class="form-control form-control-sm d-inline-block" id="inboundDate" style="width: auto;" />
                             </div>
 
-                            <!-- 오른쪽: 버튼 묶음 -->
-                            <!-- <div>
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                              <button type="button" class="btn btn-primary">입고 요청 완료</button>
-                            </div> -->
-
                             <div>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                                 <button type="button" class="main-btn primary-btn btn-primary btn-sm">입고 요청 완료</button>
@@ -144,7 +148,7 @@
                     </div>
                 </div>
             </div>
-
+            </form>
             <!-- Modal HTML End -->
 
         </div>
@@ -190,29 +194,11 @@
         autoWidth: false,
         columnDefs: [
             { targets: 0, orderable: false, searchable: false }, // 체크박스 컬럼
-            { targets: [1, 2, 3, 4], className: 'text-center' }
+            // { targets: [0, 1, 2, 3], className: 'text-center' }
+             { targets: [1, 2, 3, 4], className: 'text-center' }
             // { targets: [1, 2, 3, 4, 6, 7], className: 'text-center' }
         ],
         order: [[1, 'asc']],
-        ajax: function(data, callback, settings) {
-            const dummyProducts = [
-                { productCode: "DPN1", productName: "프로틴초코도넛", productPrice: 5000, storedType: "냉장" },
-                { productCode: "DPN2", productName: "프로틴딸기도넛", productPrice: 5000, storedType: "냉장" },
-                { productCode: "DPN3", productName: "프로틴글레이즈드도넛", productPrice: 5000, storedType: "냉장" },
-                { productCode: "DPN4", productName: "냉동프로틴초코도넛", productPrice: 4000, storedType: "냉동" },
-                { productCode: "DPN5", productName: "냉동프로틴딸기도넛", productPrice: 4000, storedType: "냉동" },
-                { productCode: "DPN6", productName: "냉동동프로틴글레이즈드도넛", productPrice: 4000, storedType: "냉동" },
-
-                // ... 등등
-            ];
-
-
-            // 데이터를 비동기적으로 불러온 후 callback으로 전달
-            // 페이지네이션을 위해 반드시 필요 (단, 본인 더미데이터 변수로 변경 필요)
-            Promise.resolve().then(() => {
-                callback({ data: dummyProducts });
-            });
-        },
         columns: [
             { // 체크박스 컬럼
                 data: null,
@@ -334,7 +320,6 @@
         $('#select-all').prop('checked', false);
     });
 
-
     // "입고 요청" 버튼 클릭 시
     $('#btnInboundAdd_clone').on('click', function () {
         const selectedData = [];
@@ -342,6 +327,7 @@
         // 체크된 행들의 데이터 수집
         $('#datatable tbody input.row-checkbox:checked').each(function () {
             const rowData = table.row($(this).closest('tr')).data();
+            console.log(rowData);
             selectedData.push(rowData);
         });
 
@@ -359,11 +345,11 @@
         selectedData.forEach((item, index) => {
             const rowHtml = `
         <tr>
-          <td>${index + 1}</td>
-          <td>${item.productCode}</td>
-          <td>${item.productName}</td>
-          <td>${item.productPrice}</td>
-          <td>${item.storedType}</td>
+          <td> `+(index + 1)+`</td>
+          <td>`+item.productCode+`</td>
+          <td>`+item.productName+`</td>
+          <td>`+item.productPrice+`</td>
+          <td>`+item.storedType+`</td>
           <td><input type="number" class="form-control quantity-input" min="100" value="100" step="100" style="width: 80px;"></td>
         </tr>
       `;
@@ -373,6 +359,8 @@
         // 모달 열기
         $('#addInboundModal').modal('show');
     });
+
+
 
     // "입고 요청 완료" 버튼 클릭 시
     $('#addInboundModal .btn-primary').on('click', function () {

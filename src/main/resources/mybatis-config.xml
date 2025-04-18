@@ -4,6 +4,6 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-
+        <package name="com.donut.prokindonutsweb.dto.inbound"/>
     </typeAliases>
 </configuration>
