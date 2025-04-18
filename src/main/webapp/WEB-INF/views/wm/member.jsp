@@ -82,7 +82,19 @@
                                     <th>비밀번호</th>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                <c:forEach var="member" items="${memberList}">
+                                    <tr>
+                                        <td>${member.memberCode}</td>
+                                        <td>${member.name}</td>
+                                        <td>${member.phoneNumber}</td>
+                                        <td>${member.email}</td>
+                                        <td>${member.address}</td>
+                                        <td>${member.id}</td>
+                                        <td>${member.password}</td>
+                                    </tr>
+
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -134,33 +146,6 @@
             { targets: [0, 1, 2, 3, 4, 5 ,6], className: 'text-center' }
         ],
         order: [[0, 'asc']],
-        ajax: function(data, callback, settings) {
-            const dummyMembers = [
-                { memberCode: "QH1", authCode: "QH", name: "김성실", phone: "010-4894-2574", email: "sungs_01@gmail.com", address: "경기도 수원 영통 덕영대로 1705 903호", id: "sungsil01", password: "sungsil01!", loginStatus: "logout" },
-                { memberCode: "WM1", authCode: "WM", name: "이근면", phone: "010-5598-7895", email: "lee233@gmail.com", address: "서울 삼성117로 5층 523호", id: "lee233", password: "lee233!", loginStatus: "logout" },
-                { memberCode: "WM2", authCode: "WM", name: "김세진", phone: "010–2345–6789", email: "sejin_wm2@gmail.com", address: "서울 마포구 월드컵북로 400 12층", id: "ksejin", password: "ksejin!", loginStatus: "logout" },
-                { memberCode: "WM3", authCode: "WM", name: "박수연", phone: "010–3456–7890", email: "suyeon_wm3@gmail.com", address: "서울 강남구 도산대로 122", id: "psuyeon", password: "psuyeon!", loginStatus: "logout" },
-                { memberCode: "WM4", authCode: "WM", name: "오민재", phone: "010–4567–8901", email: "minjae_wm4@gmail.com", address: "서울 송파구 백제고분로 55", id: "omin0316", password: "omin0316!", loginStatus: "logout" },
-                { memberCode: "FM1", authCode: "FM", name: "박열정", phone: "010-6665-4589", email: "fire123@gmail.com", address: "경기도 화성 행궁동 곱창길 11-4번지, 2층", id: "fire123", password: "fire123!", loginStatus: "logout" },
-                { memberCode: "FM2", authCode: "FM", name: "조아현", phone: "010–5678–9012", email: "ahyun_fm2@gmail.com", address: "경기도 성남시 분당구 불정로 90", id: "ahyun90", password: "ahyun90!", loginStatus: "logout" },
-                { memberCode: "FM3", authCode: "FM", name: "백승우", phone: "010–6789–0123", email: "seungwoo_fm3@gmail.com", address: "부산 남구 수영로 222", id: "woo999", password: "woo999!", loginStatus: "logout" },
-                { memberCode: "FM4", authCode: "FM", name: "윤가영", phone: "010–7890–1234", email: "gayoung_fm4@gmail.com", address: "대전 유성구 대학로 99", id: "gyoon0528", password: "gyoon0528!", loginStatus: "logout" }
-            ];
-            // 데이터를 비동기적으로 불러온 후 callback으로 전달
-            // 페이지네이션을 위해 반드시 필요 (단, 본인 더미데이터 변수로 변경 필요)
-            Promise.resolve().then(() => {
-                callback({ data: dummyMembers });
-            });
-        },
-        columns: [
-            { data: 'memberCode', title: '회원코드' },
-            { data: 'name', title: '성함' },
-            { data: 'phone', title: '전화번호' },
-            { data: 'email', title: '이메일' },
-            { data: 'address', title: '주소' },
-            { data: 'id', title: '아이디' },
-            { data: 'password', title: '비밀번호' },
-        ],
         paging: true,
         pageLength: 10,
         lengthMenu: [[5, 10, 20, -1], ['5개', '10개', '20개', '전체']],

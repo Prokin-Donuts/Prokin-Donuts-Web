@@ -46,7 +46,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html"> <i class="lni lni-exit"></i> Sign Out </a>
+                                <a href="<c:url value='/home/login'/>"> <i class="lni lni-exit"></i> Sign Out </a>
                             </li>
                         </ul>
                     </div>

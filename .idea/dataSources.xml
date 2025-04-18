@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="prokinWebDb@localhost" uuid="c7267b28-449c-4cc0-97f7-28e07f187237">
+    <data-source source="LOCAL" name="prokinWeb" uuid="0f8096f6-b83c-4298-a9c1-fe6eee98bf2d">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

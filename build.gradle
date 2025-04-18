@@ -14,8 +14,8 @@ ext {
     junitVersion = '5.9.2'
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -101,6 +101,12 @@ dependencies {
      */
     implementation 'org.mybatis:mybatis:3.5.7'
     implementation 'org.mybatis:mybatis-spring:2.0.6'
+
+    /**
+    * ModelMapper 설정
+    * DTO와 VO 간의 매핑을 자동으로 처리
+    */
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
 }
 
 test {

@@ -61,7 +61,7 @@
                     <!-- Start card -->
                     <div class="card-style mb-30">
                         <h6 class="mb-10">재고 목록</h6>
-                        <p class="text-sm mb-20">
+                        <p class="text-sm mb-20"></p>
 
                             <!-- 원하는 필터(중분류, 소분류) 설정 -->
                         <div id="myCustomFilters" style="display: none;">
@@ -114,7 +114,6 @@
 
                         </div>
 
-                        </p>
                         <div class="table-wrapper table-responsive p-0">
 
 
@@ -123,13 +122,13 @@
 
                                 <!-- colgroup를 통해 열 폭을 강제 지정 -->
                                 <colgroup>
-                                    <col style="width: 20%; background-color: null;" />
-                                    <col style="width: 15%; background-color: null;" />
-                                    <col style="width: 10%; background-color: null;" />
-                                    <col style="width: 10%; background-color: null;" />
-                                    <col style="width: 15%; background-color: null;" />
-                                    <col style="width: 20%; background-color: null;" />
-                                    <col style="width: 10%; background-color: null;" />
+                                    <col style="width: 20%;" />
+                                    <col style="width: 15%;" />
+                                    <col style="width: 10%;" />
+                                    <col style="width: 10%;" />
+                                    <col style="width: 15%;" />
+                                    <col style="width: 20%;" />
+                                    <col style="width: 10%;" />
                                 </colgroup>
 
                                 <thead>

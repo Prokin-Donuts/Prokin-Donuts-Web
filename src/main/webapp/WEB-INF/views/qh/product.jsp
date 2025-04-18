@@ -6,15 +6,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="<c:url value='/resources/images/logo/favicon_logo.png'/>" type="image/png" />
+    <link rel="shortcut icon" href="/resources/images/logo/favicon_logo.png" type="image/png" />
     <title>Prokin Donuts</title>
 
     <!-- ========== All CSS files linkup ========= -->
-    <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css'/>" />
-    <link rel="stylesheet" href="<c:url value='/resources/css/lineicons.css'/>" type="text/css" />
-    <link rel="stylesheet" href="<c:url value='/resources/css/materialdesignicons.min.css'/>" type="text/css" />
-    <link rel="stylesheet" href="<c:url value='/resources/css/fullcalendar.css'/>" />
-    <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>" />
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resources/css/lineicons.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/resources/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/resources/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/resources/css/main.css" />
     <!-- datatable을 위해 필요함 -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 </head>
@@ -27,20 +27,19 @@
 <!-- ======== Preloader =========== -->
 
 <!-- ======== sidebar-nav start =========== -->
-
 <%@include file="/WEB-INF/views/includes/sidebar/qhSidebar.jsp"%>
 <!-- ======== sidebar-nav end =========== -->
 
 <!-- ======== main-wrapper start =========== -->
 <main class="main-wrapper">
+
     <!-- ========== header start ========== -->
     <%@include file="/WEB-INF/views/includes/Header/qhHeader.jsp"%>
     <!-- ========== header end ========== -->
+
     <!-- 마이페이지 모달 -->
     <%@ include file="/WEB-INF/views/includes/mypage/mypage.jsp" %>
     <!-- Modal HTML End -->
-
-    <!-- ========== section start ========== -->
 
     <!-- ========== section start ========== -->
     <section class="section">
@@ -66,10 +65,10 @@
                     <!-- Start card -->
                     <div class="card-style mb-30">
                         <h6 class="mb-10">카테고리 목록</h6>
-                        <p class="text-sm mb-20">
+                        <p class="text-sm mb-20"></p>
 
-                            <!-- 원하는 필터(중분류, 소분류) 설정 -->
-                        <div id="myCustomFilters_mainCategoryUp" style="display: none;">
+                        <!-- 원하는 필터(중분류, 소분류) 설정 -->
+                        <div class="text-sm mb-20" id="myCustomFilters_mainCategoryUp" style="display: none;">
 
                             <div class="d-flex flex-wrap gap-2">
                                 <!-- 중분류 -->
@@ -99,7 +98,6 @@
 
                         </div>
 
-                        </p>
                         <div class="table-wrapper table-responsive p-0">
 
                             <!-- Start table -->
@@ -107,11 +105,11 @@
 
                                 <!-- colgroup를 통해 열 폭을 강제 지정 -->
                                 <colgroup>
-                                    <col style="width: 5%; background-color: null;" />
-                                    <col style="width: 25%; background-color: null;" />
-                                    <col style="width: 25%; background-color: null;" />
-                                    <col style="width: 30%; background-color: null;" />
-                                    <col style="width: 15%; background-color: null;" />
+                                    <col style="width: 5%;" />
+                                    <col style="width: 25%;" />
+                                    <col style="width: 25%" />
+                                    <col style="width: 30%;" />
+                                    <col style="width: 15%;" />
                                 </colgroup>
 
                                 <thead>
@@ -142,7 +140,7 @@
                     <!-- Start card -->
                     <div class="card-style mb-30">
                         <h6 class="mb-10">제품 목록</h6>
-                        <p class="text-sm mb-20">
+                        <p class="text-sm mb-20"></p>
 
                             <!-- 원하는 필터(중분류, 소분류) 설정 -->
                         <div id="myCustomFilters" style="display: none;">
@@ -187,41 +185,38 @@
 
                         </div>
 
+                        <div class="table-wrapper table-responsive p-0">
+                            <!-- Start table -->
+                            <table id="datatable" class="table striped-table w-100" style="width:100%">
 
-                        </p>                <div class="table-wrapper table-responsive p-0">
+                                <!-- colgroup를 통해 열 폭을 강제 지정 -->
+                                <colgroup>
+                                    <col style="width: 5%;" />
+                                    <col style="width: 10%;" />
+                                    <col style="width: 10%;" />
+                                    <col style="width: 15%;" />
+                                    <col style="width: 10%;" />
+                                    <col style="width: 20%;" />
+                                    <col style="width: 15%;" />
+                                </colgroup>
 
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="select-all"></th> <!-- 체크박스 열 -->
+                                    <th>제품코드</th>
+                                    <th>중분류</th>
+                                    <th>소분류</th>
+                                    <th>보관타입</th>
+                                    <th>제품명</th>
+                                    <th>제공단가</th>
+                                </tr>
+                                </thead>
 
-                        <!-- Start table -->
-                        <table id="datatable" class="table striped-table w-100" style="width:100%">
+                                <tbody>
+                                </tbody>
 
-                            <!-- colgroup를 통해 열 폭을 강제 지정 -->
-                            <colgroup>
-                                <col style="width: 5%; background-color: null;" />
-                                <col style="width: 10%; background-color: null;" />
-                                <col style="width: 10%; background-color: null;" />
-                                <col style="width: 15%; background-color: null;" />
-                                <col style="width: 10%; background-color: null;" />
-                                <col style="width: 20%; background-color: null;" />
-                                <col style="width: 15%; background-color: null;" />
-                            </colgroup>
-
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox" id="select-all"></th> <!-- 체크박스 열 -->
-                                <th>제품코드</th>
-                                <th>중분류</th>
-                                <th>소분류</th>
-                                <th>보관타입</th>
-                                <th>제품명</th>
-                                <th>제공단가</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            </tbody>
-
-                        </table>
-                    </div>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -518,18 +513,18 @@
 <!-- 모달 끝 -->
 
 <!-- ========= All Javascript files linkup ======== -->
-<script src="<c:url value='/resources/js/Chart.min.js'/>"></script>
-<script src="<c:url value='/resources/js/dynamic-pie-chart.js'/>"></script>
-<script src="<c:url value='/resources/js/moment.min.js'/>"></script>
-<script src="<c:url value='/resources/js/fullcalendar.js'/>"></script>
-<script src="<c:url value='/resources/js/jvectormap.min.js'/>"></script>
-<script src="<c:url value='/resources/js/world-merc.js'/>"></script>
-<script src="<c:url value='/resources/js/polyfill.js'/>"></script>
-<script src="<c:url value='/resources/js/main.js'/>"></script>
+<script src="/resources/js/Chart.min.js"></script>
+<script src="/resources/js/dynamic-pie-chart.js"></script>
+<script src="/resources/js/moment.min.js"></script>
+<script src="/resources/js/fullcalendar.js"></script>
+<script src="/resources/js/jvectormap.min.js"></script>
+<script src="/resources/js/world-merc.js"></script>
+<script src="/resources/js/polyfill.js"></script>
+<script src="/resources/js/main.js"></script>
 <!-- datatable을 위해 필요함 -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="<c:url value='/resources/js/bootstrap.bundle.min.js'/>"></script>
+<script src="/resources/js/bootstrap.bundle.min.js"></script>
 
 <script>
     // Bootstrap 5 Tooltip 활성화 (모달 내부)
@@ -572,6 +567,7 @@
                 { targets: [1, 2, 3], className: 'text-center' }
             ],
             ajax: function(data, callback, settings) {
+                console.log('ajax called', settings.nTable.id); // 로그 추가해서 확인
                 // settings.nTable.id 검사를 통해 해당 테이블에만 적용
                 if (settings.nTable.id !== 'datatable_mainCategoryUp') return true;
                 const dummyMainCategorieData = [
@@ -935,38 +931,39 @@
 
 <!-- 위 : 카테고리 / 아래 : 제품 -->
 
+
 <script>
     $(document).ready(function() {
         // 1. 더미 데이터 정의 (중분류, 소분류)
         const dummyMidCategories = [
-            { id: "도넛", name: "도넛" },
-            { id: "베이글", name: "베이글" },
-            { id: "커피", name: "커피" },
-            { id: "티", name: "티" },
-            { id: "머그컵", name: "머그컵" },
-            { id: "텀블러", name: "텀블러" }
+            {id: "도넛", name: "도넛"},
+            {id: "베이글", name: "베이글"},
+            {id: "커피", name: "커피"},
+            {id: "티", name: "티"},
+            {id: "머그컵", name: "머그컵"},
+            {id: "텀블러", name: "텀블러"}
         ];
         const dummySubCategories = [
-            { id: "프로틴 도넛", name: "프로틴 도넛", midCategory: "도넛" },
-            { id: "글루텐 프리 도넛", name: "글루텐 프리 도넛", midCategory: "도넛" },
-            { id: "저당 도넛", name: "저당 도넛", midCategory: "도넛" },
-            { id: "글루텐프리베이글", name: "글루텐프리베이글", midCategory: "베이글" },
-            { id: "디카페인", name: "디카페인", midCategory: "커피" },
-            { id: "제로음료", name: "제로음료", midCategory: "티" },
-            { id: "프로킨머그컵", name: "프로킨머그컵", midCategory: "머그컵" },
-            { id: "프로킨텀블러", name: "프로킨텀블러", midCategory: "텀블러" }
+            {id: "프로틴 도넛", name: "프로틴 도넛", midCategory: "도넛"},
+            {id: "글루텐 프리 도넛", name: "글루텐 프리 도넛", midCategory: "도넛"},
+            {id: "저당 도넛", name: "저당 도넛", midCategory: "도넛"},
+            {id: "글루텐프리베이글", name: "글루텐프리베이글", midCategory: "베이글"},
+            {id: "디카페인", name: "디카페인", midCategory: "커피"},
+            {id: "제로음료", name: "제로음료", midCategory: "티"},
+            {id: "프로킨머그컵", name: "프로킨머그컵", midCategory: "머그컵"},
+            {id: "프로킨텀블러", name: "프로킨텀블러", midCategory: "텀블러"}
         ];
 
         // 2. 원본 필터 영역에 중분류, 소분류 옵션 채우기
         var $midSelect = $('#myCustomFilters #midCategory');
-        $.each(dummyMidCategories, function(index, item) {
+        $.each(dummyMidCategories, function (index, item) {
             $midSelect.append($('<option>', {
                 value: item.id,
                 text: item.name
             }));
         });
         var $subSelect = $('#myCustomFilters #subCategory');
-        $.each(dummySubCategories, function(index, item) {
+        $.each(dummySubCategories, function (index, item) {
             $subSelect.append($('<option>', {
                 value: item.id,
                 text: item.name
@@ -988,8 +985,7 @@
         // 4. 이벤트 바인딩: 중분류 선택 시 소분류 리셋, 소분류 선택 시 자동 중분류 선택
         $('#myCustomFilters #midCategory').on('change', function() {
             $('#myCustomFilters #subCategory').val('');
-        });
-        $('#myCustomFilters #subCategory').on('change', function() {
+
             var selectedSub = $(this).val();
             if (selectedSub) {
                 var correspondingMid = mapping[selectedSub];
@@ -1011,6 +1007,7 @@
                 { targets: [1, 2, 3, 4, 5, 6], className: 'text-center' } // JS 속성으로 가운데 정렬
             ],
             ajax: function(data, callback, settings) {
+                console.log('ajax called', settings.nTable.id); // 로그 추가해서 확인
                 if (settings.nTable.id !== 'datatable') return true;
                 // 전역 더미 데이터 (제품 목록)
                 const dummyData = [
@@ -1370,38 +1367,46 @@
         }
 
         function createEditRow(rowData) {
-            const options = (arr, selected) => arr.map(v => `<option value="${v}"${v == selected ? ' selected' : ''}>${v}</option>`).join('');
-            const mids = Object.keys(dummySubCategoriesByMid);
-            const subs = dummySubCategoriesByMid[rowData.categoryMid] || [];
+            const options = function(arr, selected) {
+                return arr.map(function(v) {
+                    var val = (typeof v === 'string') ? v : (v.id || '');
+                    var text = (typeof v === 'string') ? v : (v.name || '');
+                    var selectedAttr = (val.trim() === (selected || '').trim()) ? ' selected' : '';
+                    return '<option value="' + val + '"' + selectedAttr + '>' + text + '</option>';
+                }).join('');
+            };
 
-            return `
-            <tr data-duplicate-checked="false">
-              <td><span class="form-control form-control-sm text-muted bg-light">${rowData.productId}</span></td>
-              <td>
-                <select class="form-select form-select-sm required-field mid-select">
-                  <option value="">중분류 선택</option>
-                  ${options(mids, rowData.categoryMid)}
-                </select>
-              </td>
-              <td>
-                <select class="form-select form-select-sm required-field sub-select" disabled>
-                  <option value="">소분류 선택</option>
-                  ${options(subs, rowData.categorySub)}
-                </select>
-              </td>
-              <td><input type="text" class="form-control form-control-sm required-field name-input" maxlength="10" value="${rowData.productName}"></td>
-              <td><input type="text" class="form-control form-control-sm required-field price-input" value="${rowData.numericPrice}"></td>
-              <td>
-                <select class="form-select form-select-sm required-field stored-select">
-                  <option value="">선택</option>
-                  <option value="냉장"${rowData.StoredType == '냉장' ? ' selected' : ''}>냉장</option>
-                  <option value="냉동"${rowData.StoredType == '냉동' ? ' selected' : ''}>냉동</option>
-                  <option value="상온"${rowData.StoredType == '상온' ? ' selected' : ''}>상온</option>
-                </select>
-              </td>
-              <td><button type="button" class="main-btn primary-btn btn-hover btn-smaller btnCheckDuplicate">중복확인</button></td>
-            </tr>
-          `;
+            var mids = Object.keys(dummySubCategoriesByMid);
+            var subs = dummySubCategoriesByMid[rowData.categoryMid] || [];
+
+            return (
+                '<tr data-duplicate-checked="false">' +
+                '<td><span class="form-control form-control-sm text-muted bg-light">' + rowData.productId + '</span></td>' +
+                '<td>' +
+                '<select class="form-select form-select-sm required-field mid-select">' +
+                '<option value="">중분류 선택</option>' +
+                options(mids, rowData.categoryMid) +
+                '</select>' +
+                '</td>' +
+                '<td>' +
+                '<select class="form-select form-select-sm required-field sub-select">' +
+                '<option value="">소분류 선택</option>' +
+                options(subs, rowData.categorySub) +
+                '</select>' +
+                '</td>' +
+                '<td><input type="text" class="form-control form-control-sm required-field name-input" maxlength="10" value="' + (rowData.productName || '') + '"></td>' +
+                '<td><input type="text" class="form-control form-control-sm required-field price-input" value="' + (rowData.productPrice || '') + '"></td>' +
+                '<td>' +
+                '<select class="form-select form-select-sm required-field stored-select">' +
+                '<option value="">선택</option>' +
+                '<option value="냉장"' + (rowData.StoredType == '냉장' ? ' selected' : '') + '>냉장</option>' +
+                '<option value="냉동"' + (rowData.StoredType == '냉동' ? ' selected' : '') + '>냉동</option>' +
+                '<option value="상온"' + (rowData.StoredType == '상온' ? ' selected' : '') + '>상온</option>' +
+                '</select>' +
+                '</td>' +
+                '<td><button type="button" class="main-btn primary-btn btn-hover btn-smaller btnCheckDuplicate">중복확인</button></td>' +
+                '</tr>'
+            );
         }
 
         $(document).on('click', '#btnProductEdit_clone', function () {
@@ -1552,11 +1557,16 @@
             $('#productDeleteModal').modal('hide');
             // 필요 시 DataTable 업데이트 등의 추가 처리
         });
+
+
+
     });
-
-    //mypageData
-    <%@ include file="/WEB-INF/views/includes/mypage/mypageData.jsp" %>
-
 </script>
+
+<!-- 마이페이지 -->
+<script>
+    <%@ include file="/WEB-INF/views/includes/mypage/mypageData.jsp" %>
+</script>
+
 </body>
 </html>
