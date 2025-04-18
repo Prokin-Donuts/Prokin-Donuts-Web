@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 
 @Log4j2
-@ExtendWith(SpringExtension.class) // ✅ 이게 있어야 @Autowired 동작해!
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations ="file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class DBTest {
 
