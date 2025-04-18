@@ -104,15 +104,13 @@
 
             <!-- Modal HTML Start -->
             <!-- 입고 요청 모달 -->
-            <form id="inboundForm" method="post" action="/inbound/request">
+            <form id="inboundForm" method="post" action="/wm/inbound/request">
             <div class="modal fade" id="addInboundModal" tabindex="-1" role="dialog" aria-labelledby="addInboundModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document"> <!-- modal-lg: 큰 창 -->
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">입고 요청 확인</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-
                         </div>
                         <div class="modal-body">
                             <p>수량과 입고 날짜를 선택하고 입고요청 완료 버튼을 클릭하세요.</p>
@@ -363,7 +361,7 @@
 
 
     // "입고 요청 완료" 버튼 클릭 시
-    $('#addInboundModal .btn-primary').on('click', function () {
+    /*$('#addInboundModal .btn-primary').on('click', function () {
         const requestList = [];
 
         $('#selectedProductsTable tbody tr').each(function () {
@@ -388,7 +386,65 @@
 
         // 체크박스 초기화
         $('#datatable tbody input.row-checkbox:checked').prop('checked', false);
+    });*/
+    $('#addInboundModal .btn-primary').on('click', function () {
+        // 기존 동적 input 제거
+        $('#inboundForm input.dynamic-field').remove();
+
+        // 날짜 추가
+        const inboundDate = $('#inboundDate').val();
+        $('<input>').attr({
+            type: 'hidden',
+            name: 'inboundDate',
+            value: inboundDate,
+            class: 'dynamic-field'
+        }).appendTo('#inboundForm');
+
+        // 제품 목록 반복
+        $('#selectedProductsTable tbody tr').each(function (i) {
+            const $tds = $(this).find('td');
+            const quantity = $(this).find('.quantity-input').val();
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'productList[' + i + '].productCode',
+                value: $tds.eq(1).text(),
+                class: 'dynamic-field'
+            }).appendTo('#inboundForm');
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'productList[' + i + '].productName',
+                value: $tds.eq(2).text(),
+                class: 'dynamic-field'
+            }).appendTo('#inboundForm');
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'productList[' + i + '].productPrice',
+                value: $tds.eq(3).text(),
+                class: 'dynamic-field'
+            }).appendTo('#inboundForm');
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'productList[' + i + '].storedType',
+                value: $tds.eq(4).text(),
+                class: 'dynamic-field'
+            }).appendTo('#inboundForm');
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'productList[' + i + '].quantity',
+                value: quantity,
+                class: 'dynamic-field'
+            }).appendTo('#inboundForm');
+        });
+
+        // form 전송
+        $('#inboundForm').submit();
     });
+
     //mypageData
     <%@ include file="/WEB-INF/views/includes/mypage/mypageData.jsp" %>
 

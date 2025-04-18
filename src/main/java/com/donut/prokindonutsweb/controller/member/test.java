@@ -35,8 +35,8 @@ public class test {
     @GetMapping("/wm/warehouse")
     public void Wwarehouse(){}
 
-    @GetMapping("/wm/inbound/request")
-    public void Wrequest(){}
+//    @GetMapping("/wm/inbound/request")
+//    public void Wrequest(){}
 
     @GetMapping("/wm/member")
     public void Wmember(){}
