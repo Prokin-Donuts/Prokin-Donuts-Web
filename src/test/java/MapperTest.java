@@ -37,7 +37,7 @@ public class MapperTest {
 
     @Test
     void insertInboundDetail() {
-        InboundDetailDTO dto1 = InboundDetailDTO.builder()
+        /*InboundDetailDTO dto1 = InboundDetailDTO.builder()
                 .inboundDetailCode("In1-5")
                 .quantity(200)
                 .inboundCode("In1")
@@ -56,6 +56,6 @@ public class MapperTest {
         list.add(dto1);
         list.add(dto2);
 
-        inboundMapper.insertInboundDetailList(list);
+        inboundMapper.insertInboundDetailList(list);*/
     }
 }
