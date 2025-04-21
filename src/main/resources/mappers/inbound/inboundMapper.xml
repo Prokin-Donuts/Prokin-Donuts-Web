@@ -78,6 +78,21 @@
         update inbound set inboundStatus = "입고취소" where inboundCode = #{inboundCode}
     </update>
 
+<!--    창고관리자 입고 현황-->
+
+<!--    입고현황 목록 반환-->
+    <select id="selectAllInboundStatusList" resultType="com.donut.prokindonutsweb.dto.inbound.InboundStatusVO">
+        select i.inboundCode, p.productCode, p.productName, p.productPrice, i.inboundDate, i.inboundStatus, d.sectionCode, d.quantity
+        from inbound i, inboundDetail d, product p
+        where i.inboundCode = d.inboundCode and p.productCode = d.productCode
+    </select>
+
+
+
+
+
+
+
     <sql id="search">
         <if test="(types != null and keyword != null)">
             <foreach collection="types" item="type" open=" and ( " separator="OR" close=")">

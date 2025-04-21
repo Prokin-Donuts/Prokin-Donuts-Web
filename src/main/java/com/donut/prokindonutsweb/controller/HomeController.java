@@ -31,11 +31,6 @@ public class HomeController {
     public void Woutbound(){}
 
 
-    @GetMapping("/wm/inbound/status")
-    public void Wstatus(){}
-
-
-
     @GetMapping("/wm/warehouse")
     public void Wwarehouse(){}
 

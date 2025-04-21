@@ -97,4 +97,12 @@ public class InboundController {
         return "redirect:/wm/inbound/approval";
     }
 
+    // 입고현황
+
+    @GetMapping("/status")
+    public void wmGetAllInboundStatus(Model model) {
+        List<InboundStatusDTO> inboundStatusList = inboundService.findAllInboundStatusList().get();
+        model.addAttribute("inboundStatusList", inboundStatusList);
+    }
+
 }

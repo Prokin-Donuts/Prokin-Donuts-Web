@@ -108,14 +108,14 @@ public class InboundServiceImpl implements InboundService {
         List<InboundDetailDTO> list = inboundMapper.selectAllInboundDetailList()
                 .stream()
                 .map(vo -> {
-                    InboundDetailDTO dto = InboundDetailDTO.builder()
-                            .inboundCode(vo.getInboundCode())
-                            .productCode(vo.getProductCode())
-                            .productName(inboundMapper.selectProductName(vo.getProductCode()))
-                            .productPrice(inboundMapper.selectProductPrice(vo.getProductCode()))
-                            .storedType(getStoredType(vo.getSectionCode()))
-                            .quantity(vo.getQuantity())
-                            .build();
+                            InboundDetailDTO dto = InboundDetailDTO.builder()
+                                    .inboundCode(vo.getInboundCode())
+                                    .productCode(vo.getProductCode())
+                                    .productName(inboundMapper.selectProductName(vo.getProductCode()))
+                                    .productPrice(inboundMapper.selectProductPrice(vo.getProductCode()))
+                                    .storedType(getStoredType(vo.getSectionCode()))
+                                    .quantity(vo.getQuantity())
+                                    .build();
                             return dto;
                         }
                 ).toList();
@@ -124,8 +124,8 @@ public class InboundServiceImpl implements InboundService {
 
     private String getStoredType(String sectionCode) {
         char type = sectionCode.charAt(sectionCode.length() - 1);
-        if(type=='R') return "냉장";
-        else if(type=='F') return "냉동";
+        if (type == 'R') return "냉장";
+        else if (type == 'F') return "냉동";
         else return "상온";
     }
 
@@ -136,7 +136,7 @@ public class InboundServiceImpl implements InboundService {
 
     @Override
     public Optional<List<InventoryDTO>> findInboundDetailList(String inboundCode) {
-       return Optional.of(new ArrayList<>(inboundMapper.selectInboundDetailList(inboundCode)));
+        return Optional.of(new ArrayList<>(inboundMapper.selectInboundDetailList(inboundCode)));
     }
 
     @Override
@@ -149,5 +149,24 @@ public class InboundServiceImpl implements InboundService {
         inboundMapper.deleteInbound(inboundCode);
     }
 
+    @Override
+    public Optional<List<InboundStatusDTO>> findAllInboundStatusList() {
+        List<InboundStatusDTO> list = inboundMapper.selectAllInboundStatusList()
+                .stream()
+                .map(vo -> {
+                    InboundStatusDTO dto = InboundStatusDTO.builder()
+                            .inboundCode(vo.getInboundCode())
+                            .productCode(vo.getProductCode())
+                            .productName(vo.getProductName())
+                            .productPrice(vo.getProductPrice())
+                            .inboundDate(vo.getInboundDate())
+                            .inboundStatus(vo.getInboundStatus())
+                            .sectionCode(vo.getSectionCode())
+                            .quantity(vo.getQuantity())
+                            .build();
+                    return dto;
+                }).toList();
+        return list.isEmpty() ? Optional.empty() : Optional.of(list);
+    }
 
 }

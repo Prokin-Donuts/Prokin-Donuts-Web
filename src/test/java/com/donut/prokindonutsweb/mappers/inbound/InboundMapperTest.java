@@ -141,5 +141,11 @@ class InboundMapperTest {
         inboundMapper.deleteInbound("IN7");
     }
 
+    @Test
+    @DisplayName("입고현황 반환 메서드")
+    void selectAllInboundStatusList() {
+        inboundMapper.selectAllInboundStatusList().forEach(System.out::println);
+    }
+
 
 }
