@@ -88,4 +88,11 @@ class InboundServiceImplTest {
     void deleteInbound() {
         inboundService.deleteInbound("IN6");
     }
+
+    @Test
+    @DisplayName("입고현황 목록 반환")
+    void findAllInboundStatusList() {
+        inboundService.findAllInboundStatusList().ifPresent(System.out::println);
+    }
+
 }
