@@ -27,4 +27,8 @@ public interface InboundService {
     void deleteInbound(String inboundCode);
 
     Optional<List<InboundStatusDTO>> findAllInboundStatusList();
+
+    void qhUpdateInboundStatus(String inboundCode);
+
+    Optional<List<InboundDTO>> findAllQhInboundList();
 }

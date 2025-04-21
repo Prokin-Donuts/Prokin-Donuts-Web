@@ -87,7 +87,10 @@
         where i.inboundCode = d.inboundCode and p.productCode = d.productCode
     </select>
 
-
+<!--    입고상태 변경 ( -> 승인대기)-->
+    <update id="updateQhInboundStatus">
+        update inbound set inboundStatus = "승인대기" where inboundCode = #{inboundCode}
+    </update>
 
 
 

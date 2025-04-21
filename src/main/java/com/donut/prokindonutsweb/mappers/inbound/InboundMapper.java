@@ -33,4 +33,6 @@ public interface InboundMapper {
     void deleteInbound(String inboundCode);
 
     List<InboundStatusVO> selectAllInboundStatusList();
+
+    void updateQhInboundStatus(String inboundCode);
 }
