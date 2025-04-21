@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,9 +19,12 @@ import java.util.List;
 public class QhInboundController {
 
     private final InboundService inboundService;
+    // 본사관리자 입고현황
     @GetMapping("/status")
     public void qhGetAllInboundStatus(Model model) {
         List<InboundStatusDTO> inboundStatusList = inboundService.findAllInboundStatusList().get();
         model.addAttribute("inboundStatusList", inboundStatusList);
     }
+
+
 }

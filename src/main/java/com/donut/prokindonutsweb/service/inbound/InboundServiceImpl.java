@@ -169,4 +169,9 @@ public class InboundServiceImpl implements InboundService {
         return list.isEmpty() ? Optional.empty() : Optional.of(list);
     }
 
+    @Override
+    public void qhUpdateInboundStatus(String inboundCode) {
+        inboundMapper.updateQhInboundStatus(inboundCode);
+    }
+
 }
