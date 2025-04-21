@@ -197,6 +197,7 @@
                                             type="text"
                                             placeholder="이름"
                                             class="form-control"
+                                            name="name"
                                             required
                                     />
                                 </div>
@@ -206,6 +207,7 @@
                                     <label class="form-label">Email (*)</label>
                                     <input
                                             id="addEmail"
+                                            name = "email"
                                             type="email"
                                             placeholder="이메일"
                                             class="form-control"
@@ -217,6 +219,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Phone Number</label>
                                     <input  id="addPhoneNumber"
+                                            name = "phoneNumber"
                                             type="text"
                                             placeholder="전화번호"
                                             class="form-control"
@@ -227,6 +230,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">address</label>
                                     <input  id="addAddress"
+                                            name ="address"
                                             type="text"
                                             placeholder="주소"
                                             class="form-control"
