@@ -111,8 +111,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
             <!-- Modal HTML Start -->
             <!-- 회원 등록 모달 -->
             <div class="modal fade" id="memberAddModal" tabindex="-1" aria-labelledby="memberAddModalLabel" aria-hidden="true">
@@ -134,34 +132,32 @@
                         <div class="modal-body">
                             <!-- 필수 입력 항목 안내 -->
                             <p class="text-danger fw-normal mb-3">(*)는 필수 입력 항목입니다.</p>
-                            <!-- 벨리드 오류 메시지 -->
-                            <c:if test="${not empty errorMessage}">
-                                <div class="text-danger mb-2">
-                                        ${errorMessage}
-                                </div>
-                            </c:if>
+
+                            <!-- 등록 폼 -->
+                            <form id="memberAddForm" action="${pageContext.request.contextPath}/qh/member/add" method="post">
                             <!-- 아이디 중복검사 폼 -->
-                            <form method="post" action="/qh/member/check-id" id="idCheckForm" style="margin-bottom: 0;">
-                                <div class="mb-3">
-                                    <label class="form-label">ID (*)</label>
+                                 <div class="mb-3">
+                                    <label for="id" class="form-label">ID (*)</label>
                                     <div class="d-flex gap-2">
-                                        <input name="id" type="text" placeholder="아이디" class="form-control" value="${checkedId}" required />
-                                        <button type="submit" class="main-btn primary-btn btn-hover btn-smaller">
+                                        <input
+                                                type="text"
+                                                placeholder="아이디"
+                                                class="form-control"
+                                                name = "id"
+                                                id="addId"
+                                        />
+                                        <button
+                                                type="button"
+                                                class="main-btn primary-btn btn-hover btn-smaller"
+                                                id="idCheck"
+                                        >
                                             ID Check
                                         </button>
                                     </div>
-                                    <c:if test="${not empty idCheckMessage}">
-                                        <div class="id-check-message" style="color: ${idCheckColor}; font-size: 0.9rem;">${idCheckMessage}</div>
-                                    </c:if>
-
-                                </div>
-                            </form>
-                            <!-- 등록 폼 -->
-                            <form id="memberAddForm" method="post" action="/qh/member/add" accept-charset="UTF-8">
+                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">authority (*)</label>
-                                    <select class="form-select" name="authorityCode" required>
-                                        <option value="" disabled selected hidden>권한 선택</option>
+                                    <select class="form-select" name="authorityCode" id="authority" required>
                                         <option value="QH">본사관리자</option>
                                         <option value="WM">창고관리자</option>
                                         <option value="FM">가맹점주</option>
@@ -170,47 +166,57 @@
                                 <!-- Password -->
                                 <div class="mb-3">
                                     <label class="form-label">Password (*)</label>
-                                    <input      name="password"
-                                                type="password"
+                                    <input
+                                            id="addPassword"
+                                            type="password"
                                             placeholder="초기 비밀번호"
-                                            class="form-control" required
+                                            class="form-control"
+                                            name="password"
+                                            required
                                     />
                                 </div>
 
                                 <!-- Password Check -->
                                 <div class="mb-3">
                                     <label class="form-label">Password Check (*)</label>
-                                    <input  name="passwordCheck"
+                                    <input
+                                            id="addPasswordCheck"
                                             type="password"
                                             placeholder="초기 비밀번호 확인"
-                                            class="form-control" required
+                                            class="form-control"
+                                            name="passwordCheck"
+                                            required
                                     />
                                 </div>
 
                                 <!-- Name -->
                                 <div class="mb-3">
                                     <label class="form-label">Name (*)</label>
-                                    <input  name="name"
+                                    <input
+                                            id="addName"
                                             type="text"
                                             placeholder="이름"
-                                            class="form-control" required
+                                            class="form-control"
+                                            required
                                     />
                                 </div>
 
                                 <!-- Email -->
                                 <div class="mb-3">
                                     <label class="form-label">Email (*)</label>
-                                    <input  name="email"
+                                    <input
+                                            id="addEmail"
                                             type="email"
                                             placeholder="이메일"
-                                            class="form-control" required
+                                            class="form-control"
+                                            required
                                     />
                                 </div>
 
                                 <!-- Phone Number -->
                                 <div class="mb-3">
                                     <label class="form-label">Phone Number</label>
-                                    <input  name="phoneNumber"
+                                    <input  id="addPhoneNumber"
                                             type="text"
                                             placeholder="전화번호"
                                             class="form-control"
@@ -220,7 +226,7 @@
                                 <!-- Address -->
                                 <div class="mb-3">
                                     <label class="form-label">address</label>
-                                    <input  name="address"
+                                    <input  id="addAddress"
                                             type="text"
                                             placeholder="주소"
                                             class="form-control"
@@ -230,8 +236,10 @@
                                 <!-- 등록 버튼 -->
                                 <div class="text-center w-100 mt-1 mb-3">
                                     <button
-                                            type="submit"
-                                            class="main-btn primary-btn btn-hover text-center">
+                                            type="button"
+                                            class="main-btn primary-btn btn-hover text-center"
+                                            id = "add-bnt"
+                                    >
                                         회원 등록
                                     </button>
                                 </div>
@@ -242,15 +250,17 @@
             </div>
 
     <!-- 수정 모달 -->
-    <form id="memberEditForm" name="memberList" method="post" action="/qh/member/update" accept-charset="UTF-8">
-    <div class="modal fade" id="memberEditModal" tabindex="-1" aria-labelledby="memberEditModalLabel" aria-hidden="true">
+   <div class="modal fade" id="memberEditModal" tabindex="-1" aria-labelledby="memberEditModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h3 class="modal-title" id="memberEditModalLabel">회원 수정</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
+                    <form id="memberEditForm" name="memberList" method="post" action="/qh/member/update" accept-charset="UTF-8">
                     <table class="table striped-table w-100 member-datatable" style="width:100%">
                         <thead>
                         <tr>
@@ -263,14 +273,7 @@
                             <th>비밀번호</th>
                         </tr>
                         </thead>
-
                         <tbody id="memberEditModalBody">
-                        <!-- 벨리드 오류 메시지 -->
-                        <c:if test="${not empty errorMessage}">
-                            <div class="text-danger mb-2">
-                                    ${errorMessage}
-                            </div>
-                        </c:if>
                         <c:if test="${not empty memberList}">
                             <c:forEach var="item" items="${memberList}" varStatus="status">
                                 <tr>
@@ -297,23 +300,26 @@
                 <div class="modal-footer">
                     <button type="submit" class="main-btn primary-btn btn-hover text-center">수정</button>
                 </div>
+                    </form>
+                </div>
             </div>
         </div>
-        </div>
     </div>
-</form>
+
 
     <!-- 삭제 모달 -->
-
-    <form id="memberDeleteForm" method="post" action="/qh/member/delete" accept-charset="UTF-8">
-               <div class="modal fade" id="memberDeleteModal" tabindex="-1" aria-labelledby="memberDeleteModalLabel" aria-hidden="true">
+           <div class="modal fade" id="memberDeleteModal" tabindex="-1" aria-labelledby="memberDeleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+
                         <div class="modal-header">
                             <h3 class="modal-title" id="memberDeleteModalLabel">회원 삭제</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+
                         <div class="modal-body">
+
+                            <form id="memberDeleteForm" method="post" action="/qh/member/delete" accept-charset="UTF-8">
                             <h5>선택한 회원을 정말 삭제하시겠습니까?</h5><br>
                             <ul id="deleteMemberList" class="list-group mb-3 ">
                                 <!-- 선택된 회원 목록 삽입 -->
@@ -321,11 +327,14 @@
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="button" class="main-btn primary-btn btn-hover text-center" id="confirmDelete">삭제</button>
                             </div>
+                            </form>
+
                         </div>
                     </div>
+
                 </div>
             </div>
-    </form>
+
             <!-- Modal HTML End -->
 
         </div>
@@ -365,9 +374,11 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="<c:url value='/resources/js/bootstrap.bundle.min.js'/>"></script>
+<!-- 다음 우편번호 API -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-    var table = $('#datatable').DataTable({
+        var table = $('#datatable').DataTable({
         autoWidth: false,
         columnDefs: [
             {targets: 0, orderable: false, searchable: false}, // 체크박스 컬럼
@@ -482,28 +493,105 @@
     });
 
     // 등록 버튼 클릭 시
-    $('#btnMemberAdd_clone').on('click', function (e) {
-        $('#idCheckForm input[name="id"]').val('');
-        $('#idCheckForm .id-check-message').text('');
-        $('#memberAddForm')[0].reset(); // 나머지 등록 입력값도 전부 초기화
-        $('#memberAddModal').modal('show');
-    });
+        let isIdChecked = false;
+        function resetRegisterForm() {
 
-    // 등록 시 비밀번호 확인
-    document.getElementById("memberAddForm").addEventListener("submit", function (e) {
-        const password = document.querySelector("#memberAddForm input[name='password']").value.trim();
-        const passwordCheck = document.querySelector("#memberAddForm input[name='passwordCheck']").value.trim();
-
-        if (password !== passwordCheck) {
-            e.preventDefault(); // 서버 전송 막음
-            alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            $('#idCheckForm input[name="id"]').val('');
+            $('#idCheckForm .id-check-message').text('');
+            $('#memberAddForm')[0].reset();
+            isIdChecked = false;
         }
-    });
-    // 아이디 체크 후 모달 유지
-    <c:if test="${showAddModal}">
-    const modal = new bootstrap.Modal(document.getElementById('memberAddModal'));
-    modal.show();
-    </c:if>
+
+        // 모달이 완전히 닫혔을 때
+        $('#memberAddModal').on('hidden.bs.modal', function() {
+            resetRegisterForm();
+        });
+
+        // 1. 등록 모달 열기
+        $('#btnMemberAdd_clone').on('click', function (e) {
+            resetRegisterForm();
+            $("#memberAddModal").modal("show");
+        });
+        // 2. 창고명 변경 시 중복 체크 초기화
+        $("#id").on("input", function () {
+            isIdChecked = false;
+        });
+
+        // 3. 중복 확인 버튼 (SSR과 연계된 fetch 방식)
+        $("#idCheck").on("click", function () {
+            const name = $("#addId").val().trim();
+            if (!name) {
+                alert("아이디를 입력하세요");
+                return;
+            }
+            const reg = /^[A-Za-z가-힣]{1,10}$/;
+            if (!reg.test(name)) {
+                alert("한글/영어만 가능하며 최대 10글자입니다.");
+                return;
+            }
+
+            const contextPath = "${pageContext.request.contextPath}";
+            fetch(contextPath + "/qh/member/check?id=" + encodeURIComponent(name))
+                .then(function (res) { return res.text(); })  // ← 여기!!
+                .then(function (text) {
+                    const isDup = (text === 'true');  // 문자열 비교
+                    if (isDup) {
+                        alert("이미 존재하는 아이디입니다.");
+                        isIdChecked = false;
+                    } else {
+                        alert("사용 가능한 아이디입니다.");
+                        isIdChecked = true;
+                    }
+                })
+                .catch(function () {
+                    alert("중복 확인 중 오류가 발생했습니다.");
+                });
+        });
+
+        // 6. 폼 제출 전 유효성 검사 및 address 합치기
+        $("#memberAddForm").on("submit", function () {
+            const id = $("#addId").val().trim();
+            const authority = $("#authority").val().trim();
+            const password = $("#addPassword").val().trim();
+            const passwordCheck = $("#addPasswordCheck").val().trim();
+            const name = $("#addName").val().trim();
+            const email = $("#addEmail").val().trim();
+            const phoneNumber = $("#addPhoneNumber").val().trim();
+            const address = $("#addAddress").val().trim();
+            const regName = /^[A-Za-z가-힣]{1,10}$/;
+            const regPhone = /^[0-9]{10,11}$/;
+
+            if (!id || !authority || !password || !passwordCheck || !name|| !email) {
+                alert("필수 항목을 모두 입력해주세요.");
+                return false;
+            }
+
+            if (!regName.test(name)) {
+                alert("이름은 한글/영어 조합이며 최대 10글자입니다.");
+                return false;
+            }
+
+            if (!regPhone.test(phoneNumber)) {
+                alert("전화번호는 하이픈없이 10~11자리의 숫자입니다.");
+                return false;
+            }
+
+            if (password !== (passwordCheck)) {
+                alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+                return false;
+            }
+
+            if (!isIdChecked) {
+                alert("아이디 중복확인을 해주세요.");
+                return false;
+            }
+
+
+        });
+
+        $("#add-bnt").on("click", function () {
+            $("#memberAddForm").submit(); // 직접 제출
+        });
 
     // 수정 버튼 클릭 시
     $('#btnMemberEdit_clone').on('click', function (e) {

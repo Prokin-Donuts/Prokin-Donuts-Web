@@ -9,10 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -49,15 +46,10 @@ public class QhMemberController {
         return "redirect:list";
     }
 
-    @PostMapping("/check-id")
-    public String checkId(RedirectAttributes redirectAttributes, String id){
-        boolean duplicated = memberService.memberIdCheck(id);
-
-        redirectAttributes.addFlashAttribute("idCheckMessage", duplicated ? "이미 사용중인 아이디" : "사용가능한 아이디");
-        redirectAttributes.addFlashAttribute("idCheckColor", duplicated ? "red" : "green");
-        redirectAttributes.addFlashAttribute("checkedId", id);
-        redirectAttributes.addFlashAttribute("showAddModal", true);
-        return "redirect:list";
+    @PostMapping(value ="/check",  produces = "application/json")
+    @ResponseBody
+    public String checkId(@RequestParam("id") String id){
+        return memberService.memberIdCheck(id)? "true" : "false";
     }
 
 
