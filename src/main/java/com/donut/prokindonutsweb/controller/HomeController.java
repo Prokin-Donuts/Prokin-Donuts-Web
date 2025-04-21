@@ -34,17 +34,11 @@ public class HomeController {
     @GetMapping("/wm/warehouse")
     public void Wwarehouse(){}
 
-   /* @GetMapping("/wm/inbound/request")
-    public void Wrequest(){}*/
     @GetMapping("/wm/Dashboard")
     public void WDashboard(){}
 
     @GetMapping("/qh/Dashboard")
     public void QDashboard(){}
-
-    @GetMapping("/qh/inbound/request")
-    public void QIrequest(){}
-
 
     @GetMapping("/qh/franchise")
     public void Qfranchise(){}
