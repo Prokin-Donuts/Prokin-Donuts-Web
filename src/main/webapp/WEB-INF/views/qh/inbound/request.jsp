@@ -113,7 +113,7 @@
                                 <th>입고일</th>
                                 <th>입고상태</th>
                                 <th>창고코드</th>
-                                <th>승인|수정|취소</th> <!-- 수정/삭제 열 -->
+                                <th>승인|취소</th> <!-- 수정/삭제 열 -->
                             </tr>
                             </thead>
                             <c:forEach var="inbound" items="${inboundList}">
@@ -127,9 +127,6 @@
                                             <button class="btn btn-approve text-success" title="입고 승인" id="btnInboundAdd" data-inbound-code="${inbound.inboundCode}"
                                                     data-inbound-date="${inbound.inboundDate}">
                                                 <i class="lni lni-checkmark-circle"></i>
-                                            </button>
-                                            <button class="btn btn-edit text-primary-2">
-                                                <i class="lni lni-pencil"></i>
                                             </button>
                                             <button class="btn btn-delete text-danger"  data-inbound-code="${inbound.inboundCode}"
                                                     data-inbound-date="${inbound.inboundDate}">
@@ -184,57 +181,13 @@
                             </div>
                             <div>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="submit" class="main-btn primary-btn btn-primary btn-sm">입고 요청 완료</button>
+                                <button type="submit" class="main-btn primary-btn btn-primary btn-sm">승인</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
-
-        <!-- 입고 요청 수정 모달 -->
-        <div class="modal fade" id="inboundEditModal" tabindex="-1" aria-labelledby="inboundEditModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document"> <!-- modal-lg: 큰 창 -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">입고 요청 수정</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>수량과 입고 날짜를 선택하고 입고수정정 완료 버튼을 클릭하세요.</p>
-                        <table class="table" id="selectedProductsTable">
-                            <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>제품코드</th>
-                                <th>제품명</th>
-                                <th>제품단가</th>
-                                <th>보관타입</th>
-                                <th>수량</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- JS로 동적 추가 -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-between align-items-center">
-                        <!-- 왼쪽: 입고 날짜 -->
-                        <div class="form-group mb-0">
-                            <label for="inboundDate" class="mr-2 mb-0">입고 날짜:</label>
-                            <input type="date" class="form-control form-control-sm d-inline-block" id="inboundDate" style="width: auto;" />
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                            <button type="button" class="main-btn primary-btn btn-primary btn-sm">입고 수정 완료</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
 
         <!-- 입고 삭제 모달 ! -->
@@ -341,7 +294,6 @@
             { "id": "입고요청", "name": "입고요청" },
             { "id": "입고승인", "name": "입고승인" },
             { "id": "입고완료", "name": "입고완료" },
-
         ];
 
         // 2. 원본 필터 영역에 소재지 옵션 채우기
@@ -433,9 +385,8 @@
         $clone.find('#InboundCategories').attr('id', 'InboundCategories_clone');
 
         $clone.find('#btninboundAdd').attr('id', 'btninboundAdd_clone');
-        $clone.find('#btninboundEdit').attr('id', 'btninboundEdit_clone');
         $clone.find('#btninboundDelete').attr('id', 'btninboundDelete_clone');
-        $clone.find('#btninboundAdd, #btninboundEdit, #btninboundDelete').remove();
+        $clone.find('#btninboundAdd, #btninboundDelete').remove();
         $('div.myFilterArea').html($clone.html());
 
         // select 태그 감싸는 구조 적용
@@ -533,57 +484,6 @@
         });
 
 
-        // 수정 버튼 이벤트
-        // 수정 모달용 드롭다운 채우기 함수: 현재 점주(warehouseCode)가 있으면 그 항목이 목록 최상단에 오도록 정렬
-        function populateinboundManagerDropdown(currentMemberCode) {
-            const $select = $('#modifyinboundManager');
-            // 기존 옵션 초기화 및 플레이스홀더 추가
-            $select.empty().append('<option value="">점주 선택</option>');
-
-            let sortedManagers;
-            if (currentMemberCode) {
-                // 현재 점주와 나머지 점주를 분리 (dummyManagers의 id 기준 비교)
-                const currentManager = dummyManagers.filter(function(m) {
-                    return m.id === currentMemberCode;
-                });
-                const otherManagers = dummyManagers.filter(function(m) {
-                    return m.id !== currentMemberCode;
-                });
-                // 현재 점주가 가장 먼저 오도록 배열 합치기
-                sortedManagers = currentManager.concat(otherManagers);
-            } else {
-                sortedManagers = dummyManagers;
-            }
-
-            sortedManagers.forEach(function(manager) {
-                $select.append(`<option value="${manager.id}">${manager.id} | ${manager.name}</option>`);
-            });
-
-            // 현재 점주가 있다면 선택 처리
-            $select.val(currentMemberCode);
-        }
-
-        // 수정 버튼 클릭시
-        $('#datatable tbody').on('click', '.btn-edit', function(e) {
-            e.preventDefault();
-            var table = $('#datatable').DataTable();
-            var $row = $(this).closest('tr');
-            var rowData = table.row($row).data();
-
-            if (!rowData) {
-                alert('데이터를 찾을 수 없습니다.');
-                return;
-            }
-
-            $('#modifyinboundDate').val(rowData.inboundDate);
-
-            // 행 데이터의 담당자 ID가 담긴 필드는 dummy 데이터에서는 "warehouseCode"로 되어 있으므로,
-            // 만약 이름이 아닌 고유 id를 기준으로 한다면, 그 값(예: rowData.warehouseCode)을 넘겨야 합니다.
-            populateinboundManagerDropdown(rowData.warehouseCode);
-
-            $('#inboundEditModal').modal('show');
-        });
-
 
         //삭제
 
@@ -627,33 +527,6 @@
             const modal = new bootstrap.Modal(document.getElementById('inboundDeleteModal'));
             modal.show();
         });
-
-
-
-
-        /*
-                // 삭제 버튼 이벤트
-                $('#datatable tbody').on('click', '.btn-delete', function(e) {
-                    e.preventDefault();
-
-                    var table = $('#datatable').DataTable();
-                    var $row = $(this).closest('tr');
-                    var rowData = table.row($row).data();
-
-                    if (!rowData) {
-                        alert('데이터를 찾을 수 없습니다.');
-                        return;
-                    }
-
-                    // 삭제 모달의 리스트 영역을 비우고, 해당 행의 가맹점 이름을 추가
-                    $('#deleteinboundList').empty().append(
-                        '<li class="list-group-item">' + rowData.inboundDate + '</li>'
-                    );
-
-                    // 삭제 모달을 열기
-                    $('#inboundDeleteModal').modal('show');
-                });*/
-
     });
 
     //mypageData
