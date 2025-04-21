@@ -16,6 +16,6 @@ public class InboundStatusVO {
     private Integer productPrice;
     private LocalDate inboundDate;
     private String inboundStatus;
-    private String warehouseCode;
+    private String sectionCode;
     private Integer quantity;
 }
