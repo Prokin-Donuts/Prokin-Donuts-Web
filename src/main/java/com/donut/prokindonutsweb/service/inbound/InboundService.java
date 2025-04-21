@@ -29,4 +29,6 @@ public interface InboundService {
     Optional<List<InboundStatusDTO>> findAllInboundStatusList();
 
     void qhUpdateInboundStatus(String inboundCode);
+
+    Optional<List<InboundDTO>> findAllQhInboundList();
 }
