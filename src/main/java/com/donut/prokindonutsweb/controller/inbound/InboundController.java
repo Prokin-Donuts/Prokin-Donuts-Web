@@ -104,5 +104,4 @@ public class InboundController {
         List<InboundStatusDTO> inboundStatusList = inboundService.findAllInboundStatusList().get();
         model.addAttribute("inboundStatusList", inboundStatusList);
     }
-
 }

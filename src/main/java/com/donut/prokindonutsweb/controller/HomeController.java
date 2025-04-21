@@ -45,8 +45,6 @@ public class HomeController {
     @GetMapping("/qh/inbound/request")
     public void QIrequest(){}
 
-    @GetMapping("/qh/inbound/status")
-    public void QIstatus(){}
 
     @GetMapping("/qh/franchise")
     public void Qfranchise(){}
