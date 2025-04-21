@@ -347,7 +347,7 @@
         <tr>
           <td> `+(index + 1)+`</td>
           <td>`+item.productCode+`</td>
-          <td>`+item.productName+`</td>
+          <td>`+item.productName+`</td>gi
           <td>`+item.productPrice+`</td>
           <td>`+item.storedType+`</td>
           <td><input type="number" class="form-control quantity-input" min="100" value="100" step="100" style="width: 80px;"></td>
