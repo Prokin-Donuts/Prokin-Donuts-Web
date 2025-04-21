@@ -169,4 +169,28 @@ public class InboundServiceImpl implements InboundService {
         return list.isEmpty() ? Optional.empty() : Optional.of(list);
     }
 
+    @Override
+    public void qhUpdateInboundStatus(String inboundCode) {
+        inboundMapper.updateQhInboundStatus(inboundCode);
+    }
+
+
+    //    본사관리자 페이지에는 (입고요청) 상태 입고목록만 보여진다.
+    @Override
+    public Optional<List<InboundDTO>> findAllQhInboundList() {
+        List<InboundDTO> list = inboundMapper.selectAllInboundList().stream()
+                .filter(vo -> "입고요청".equals(vo.getInboundStatus()))
+                .map(vo -> {
+                            InboundDTO dto = InboundDTO.builder()
+                                    .inboundCode(vo.getInboundCode())
+                                    .inboundDate(vo.getInboundDate())
+                                    .inboundStatus(vo.getInboundStatus())
+                                    .warehouseCode(vo.getWarehouseCode())
+                                    .build();
+                            return dto;
+                        }
+                ).toList();
+        return list.isEmpty() ? Optional.empty() : Optional.of(list);
+    }
+
 }
