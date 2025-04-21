@@ -147,5 +147,10 @@ class InboundMapperTest {
         inboundMapper.selectAllInboundStatusList().forEach(System.out::println);
     }
 
+    @Test
+    @DisplayName("본사관리자의 입고승인(-> 승인대기)")
+    void updateQhInboundStatus() {
+        inboundMapper.updateQhInboundStatus("IN15");
+    }
 
 }
