@@ -81,8 +81,22 @@
 
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                <c:forEach var="detail" items="${inboundStatusList}">
+                                    <tr>
+                                        <td>${detail.inboundCode}</td>
+                                        <td>${detail.productCode}</td>
+                                        <td>${detail.productName}</td>
+                                        <td>${detail.productPrice}</td>
+                                        <td>${detail.inboundDate}</td>
+                                        <td>${detail.inboundStatus}</td>
+                                        <td>${detail.sectionCode}</td>
+                                        <td>${detail.quantity}</td>
+                                    </tr>
+                                </c:forEach>
+
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -142,27 +156,6 @@
             // { targets: [1, 2, 3, 4, 6, 7], className: 'text-center' }
         ],
         order: [[1, 'asc']],
-        ajax: function(data, callback, settings) {
-            const dummyInbound = [
-                { inboundCode: "IN1", productCode: "DPN1", productName: "프로틴초코도넛", productPrice: "5,000",inboundDate: "2025-04-12", inboundStatus: "승인대기", warehouseCode: "GG1", quantity: "100"},
-                { inboundCode: "IN1", productCode: "DPN1", productName: "프로틴초코도넛", productPrice: "5,000",inboundDate: "2025-04-12", inboundStatus: "승인대기", warehouseCode: "GG1", quantity: "100"},
-                { inboundCode: "IN1", productCode: "DPN1", productName: "프로틴초코도넛", productPrice: "5,000",inboundDate: "2025-04-12", inboundStatus: "승인대기", warehouseCode: "GG1", quantity: "100"},
-                { inboundCode: "IN1", productCode: "DPN1", productName: "프로틴초코도넛", productPrice: "5,000",inboundDate: "2025-04-12", inboundStatus: "승인대기", warehouseCode: "GG1", quantity: "100"},
-
-
-
-
-
-                // ... 등등
-            ];
-
-
-            // 데이터를 비동기적으로 불러온 후 callback으로 전달
-            // 페이지네이션을 위해 반드시 필요 (단, 본인 더미데이터 변수로 변경 필요)
-            Promise.resolve().then(() => {
-                callback({ data: dummyInbound });
-            });
-        },
         columns: [
             // { // 체크박스 컬럼
             //   data: null,
@@ -178,7 +171,7 @@
             { data: 'productPrice', title: '제품단가' },
             { data: 'inboundDate', title: '입고일' },
             { data: 'inboundStatus', title: '입고상태' },
-            { data: 'warehouseCode', title: '창고코드' },
+            { data: 'sectionCode', title: '창고코드' },
             { data: 'quantity', title: '수량' },
 
 
