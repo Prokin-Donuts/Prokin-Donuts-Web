@@ -46,7 +46,7 @@ public class QhMemberController {
         return "redirect:list";
     }
 
-    @PostMapping(value ="/check",  produces = "application/json")
+    @GetMapping(value ="/check",  produces = "text/plain")
     @ResponseBody
     public String checkId(@RequestParam("id") String id){
         return memberService.memberIdCheck(id)? "true" : "false";

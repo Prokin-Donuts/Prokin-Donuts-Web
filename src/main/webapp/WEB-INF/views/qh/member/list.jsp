@@ -516,27 +516,22 @@
             resetRegisterForm();
             $("#memberAddModal").modal("show");
         });
-        // 2. 창고명 변경 시 중복 체크 초기화
-        $("#id").on("input", function () {
+        // 2.중복 체크 초기화
+        $("#addId").on("input", function () {
             isIdChecked = false;
         });
 
         // 3. 중복 확인 버튼 (SSR과 연계된 fetch 방식)
         $("#idCheck").on("click", function () {
-            const name = $("#addId").val().trim();
-            if (!name) {
+            const id = $("#addId").val().trim();
+            if (!id) {
                 alert("아이디를 입력하세요");
-                return;
-            }
-            const reg = /^[A-Za-z가-힣]{1,10}$/;
-            if (!reg.test(name)) {
-                alert("한글/영어만 가능하며 최대 10글자입니다.");
                 return;
             }
 
             const contextPath = "${pageContext.request.contextPath}";
-            fetch(contextPath + "/qh/member/check?id=" + encodeURIComponent(name))
-                .then(function (res) { return res.text(); })  // ← 여기!!
+            fetch(contextPath + "/qh/member/check?id=" + encodeURIComponent(id))
+                .then(function (res) { return res.text(); })  //
                 .then(function (text) {
                     const isDup = (text === 'true');  // 문자열 비교
                     if (isDup) {
