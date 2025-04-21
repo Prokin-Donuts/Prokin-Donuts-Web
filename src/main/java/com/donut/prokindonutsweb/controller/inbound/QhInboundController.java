@@ -23,5 +23,4 @@ public class QhInboundController {
         List<InboundStatusDTO> inboundStatusList = inboundService.findAllInboundStatusList().get();
         model.addAttribute("inboundStatusList", inboundStatusList);
     }
-
 }
