@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.donut.prokindonutsweb.outbound.mapper.OutboundMapper">
 
-<!-- 출고 목록 반환-->
+    <!-- 출고 목록 반환-->
     <select id="selectAllOutboundList" resultType="com.donut.prokindonutsweb.outbound.dto.OutboundDTO">
         SELECT
         o.outboundCode,
@@ -22,32 +22,55 @@
         WHERE i.warehouseCode = #{warehouseCode}
     </select>
 
+    <!-- 출고요청 목록 반환-->
+    <select id="selectApprovalOutboundList" resultType="com.donut.prokindonutsweb.outbound.dto.OutboundDTO">
+        SELECT
+        o.outboundCode,
+        p.productCode,
+        p.productName,
+        o.outboundDate,
+        od.franchiseCode,
+        o.outboundStatus,
+        o.quantity
+        FROM outbound o
+        JOIN inventory i ON o.inventoryCode = i.inventoryCode
+        JOIN product p ON i.productCode = p.productCode
+        JOIN orderdetail odd ON o.orderDetailCode = odd.orderDetailCode
+        JOIN `order` od ON od.orderCode = odd.orderCode
+        WHERE i.warehouseCode = #{warehouseCode}
+        AND o.outboundStatus = "출고대기"
+    </select>
+
     <!--    재고 존재 확인 반환-->
     <select id="checkInventory" resultType="boolean">
         select case
-            when COUNT(*) = SUM(CASE when i.quantity >= o.quantity THEN 1 ELSE 0 END)
-            THEN TRUE
+        when COUNT(*) = SUM(CASE when i.quantity >= o.quantity THEN 1 ELSE 0 END)
+        THEN TRUE
         ELSE FALSE
         END AS IsAllProductEnough
-        from OrderDetail o, Inventory i
-        Where o.productCode = i.productCode and o.orderCode = #{outboundCode}
+        from outbound o, Inventory i
+        Where o.outboundCode = #{outboundCode}
     </select>
 
-<!--    출고상태 변경 (-> 출고완료)-->
+    <!--    출고상태 변경 (-> 출고준비)-->
     <update id="approveOutbound">
-        update `Order` set orderStatus = "출고완료" where orderCode = #{outboundCode}
+        update outbound set outboundStatus = "출고준비" where outboundCode = #{outboundCode}
     </update>
 
-<!--    재고차감 (출고) -->
+    <!--    출고상태 변경 (-> 출고완료)-->
+    <update id="completionOutbound">
+        update outbound set outboundStatus = "출고완료" where outboundCode = #{outboundCode}
+    </update>
 
+    <!--    재고차감 (출고) -->
     <update id="updateInventory">
         UPDATE Inventory i
-        JOIN OrderDetail o ON i.productCode = o.productCode
+        JOIN Outbound o ON i.inventoryCode = o.inventoryCode
         SET i.quantity = i.quantity - o.quantity
-        WHERE o.orderCode = #{outboundCode}
+        WHERE o.outboundCode = #{outboundCode}
     </update>
 
-<!--    멤버코드 -> 창고코드 반환-->
+    <!--    멤버코드 -> 창고코드 반환-->
     <select id="getWarehouseCode" resultType="String">
         select warehouseCode from Warehouse where memberCode = #{memberCode}
     </select>

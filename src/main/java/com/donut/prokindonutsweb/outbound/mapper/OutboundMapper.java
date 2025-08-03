@@ -8,6 +8,7 @@ import java.util.List;
 public interface OutboundMapper {
 
     List<OutboundDTO> selectAllOutboundList(String warehouseCode);
+    List<OutboundDTO> selectApprovalOutboundList(String warehouseCode);
 
     boolean checkInventory(@Param("outboundCode") String outboundCode);
 
