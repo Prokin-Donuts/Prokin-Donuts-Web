@@ -17,4 +17,5 @@ public class OutboundDTO {
     private String vehicleCode;
     private String franchiseCode;
     private String outboundStatus;
+    private String quantity;
 }
