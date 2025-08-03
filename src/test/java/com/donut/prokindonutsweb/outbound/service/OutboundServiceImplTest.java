@@ -28,6 +28,12 @@ public class OutboundServiceImplTest {
         assertNotNull(outboundList);
         outboundList.forEach(log::info);
     }
+    @Test
+    @DisplayName("Service 출고요청 목록 조회")
+    public void findApprovalOutboundList(){
+        List<OutboundDTO> outboundList = outboundService.findApprovalOutboundList("DJ1");
+        outboundList.forEach(log::info);
+    }
 
 }
 

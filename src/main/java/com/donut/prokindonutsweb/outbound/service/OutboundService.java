@@ -7,6 +7,7 @@ import java.util.List;
 public interface OutboundService {
 
     List<OutboundDTO> findOutboundList(String warehouseCode);
+    List<OutboundDTO> findApprovalOutboundList(String warehouseCode);
 
 
     boolean checkInventory(String outboundCode);
