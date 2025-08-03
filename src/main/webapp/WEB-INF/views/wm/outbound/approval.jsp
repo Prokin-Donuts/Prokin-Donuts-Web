@@ -109,9 +109,10 @@
                             <tr>
                                 <th><input type="checkbox" id="select-all"></th>
                                 <th>출고코드</th>
-                                <th>출고일</th>
-                                <th>출고상태</th>
-                                <th>창고코드</th>
+                                <th>출고요청일</th>
+                                <th>제품코드</th>
+                                <th>제품명</th>
+                                <th>수량(개)</th>
                                 <th>가맹점코드</th>
                             </tr>
                             </thead>
@@ -121,9 +122,10 @@
                                     <td><input type="checkbox" class="row-checkbox" /></td>
                                     <td>${outbound.outboundCode}</td>
                                     <td>${outbound.outboundDate}</td>
-                                    <td>${outbound.outboundStatus}</td>
+                                    <td>${outbound.productCode}</td>
+                                    <td>${outbound.productName}</td>
+                                    <td>${outbound.quantity}</td>
                                     <td>${outbound.franchiseCode}</td>
-                                    <td>${outbound.warehouseCode}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -134,150 +136,22 @@
             </div>
         </div>
 
-        <!-- 승인 모달 -->
-        <!-- 출고 승인 상세 보기 모달 -->
-        <form id="outboundApproveForm" method="post" action="/wm/outbound/approval" accept-charset="UTF-8">
-            <div class="modal fade" id="outboundDetailModal" tabindex="-1" aria-labelledby="outboundDetailModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- 크기 조정 가능: modal-sm, modal-lg 등 -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="outboundDetailModalLabel">출고 상세 내역</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
-                        </div>
-                        <div class="modal-body">
-                            <%--                        서버에 outboundCode 전송--%>
-                            <input type="hidden" id="modaloutboundCode" name="outboundCode">
-
-                            <table class="table" id="selectedProductsTable">
-                                <thead>
-                                <tr>
-                                    <th>출고상세코드</th>
-                                    <th>수량</th>
-                                    <th>출고코드</th>
-                                    <th>제품코드</th>
-                                </tr>
-                                </thead>
-                                <tbody id="outboundDetailTableBody_approve">
-                                <!-- JavaScript로 채워짐 -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-between align-items-center">
-                            <div class="form-group mb-0">
-                                <input type="date" id="outboundDate_approve" class="form-control" disabled />
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="submit" class="main-btn primary-btn btn-primary btn-sm">출고 완료</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <%--<!-- 출고 요청 수정 모달 -->
-        <form id="outboundEditForm" method="post" action="/wm/outbound/edit" accept-charset="UTF-8">
-            <div class="modal fade" id="outboundEditModal" tabindex="-1" aria-labelledby="outboundDetailModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- 크기 조정 가능: modal-sm, modal-lg 등 -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="outboundDetailModalLabel">출고 상세 내역</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table" id="selectedProductsTable">
-                                <thead>
-                                <tr>
-                                    <th>제품코드</th>
-                                    <th>제품명</th>
-                                    <th>제품단가</th>
-                                    <th>보관타입</th>
-                                    <th>수량</th>
-                                </tr>
-                                </thead>
-                                <tbody id="outboundDetailTableBody_edit">
-                                <!-- JavaScript로 채워짐 -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-between align-items-center">
-
-                            <div class="form-group mb-0">
-                                <label for="outboundDate" class="mr-2 mb-0">출고 날짜:</label>
-                                <input type="date" class="form-control form-control-sm d-inline-block" id="outboundDate" name = "outboundDate" style="width: auto;" />
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="submit" class="main-btn primary-btn btn-primary btn-sm">출고 수정</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <!-- 출고 삭제 모달 ! -->
-        <form id="outboundDeleteForm" method="post" action="/wm/outbound/cancel" accept-charset="UTF-8">
-            <div class="modal fade" id="outboundDeleteModal" tabindex="-1" aria-labelledby="outboundDeleteModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- 크기 조정 가능: modal-sm, modal-lg 등 -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="outboundDetailModalLabel">출고 상세 내역</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <input type="hidden" id="modaloutboundCode_delete" name="outboundCode">
-
-                            <table class="table" id="selectedProductsTable">
-                                <thead>
-                                <tr>
-                                    <th>제품코드</th>
-                                    <th>제품명</th>
-                                    <th>제품단가</th>
-                                    <th>보관타입</th>
-                                    <th>수량</th>
-                                </tr>
-                                </thead>
-                                <tbody id="outboundDetailTableBody_delete">
-                                <!-- JavaScript로 채워짐 -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-between align-items-center">
-                            <!-- 왼쪽: 출고 날짜 -->
-                            <div class="form-group mb-0">
-                                <input type="date" id="outboundDate_delete" class="form-control" disabled />
-
-                                &lt;%&ndash;<input type="date" class="form-control form-control-sm d-inline-block" id="outboundDate" style="width: auto;" />&ndash;%&gt;
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="submit" class="main-btn primary-btn btn-primary btn-sm">출고 삭제</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>--%>
-
         <!-- 승인 모달 (일괄 승인용) -->
-        <form id="bulkApproveForm" method="post" action="/wm/outbound/bulk-approval" accept-charset="UTF-8">
-            <div class="modal fade" id="bulkApproveModal" tabindex="-1" aria-labelledby="bulkApproveModalLabel" aria-hidden="true">
+        <form id="outboundApproveForm" method="post" action="/wm/outbound/approval" accept-charset="UTF-8">
+            <div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="bulkApproveModalLabel">출고요청 일괄 승인</h3>
+                            <h3 class="modal-title" id="approveModalLabel">출고요청 일괄 승인</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
                         </div>
                         <div class="modal-body">
                             <h5>선택한 출고요청을 승인하겠습니까?</h5><br>
-                            <ul id="bulkApprovalList" class="list-group mb-3">
+                            <ul id="approvalList" class="list-group mb-3">
                                 <!-- 선택된 출고요청 목록 삽입 -->
                             </ul>
                             <div class="d-flex justify-content-end gap-2">
-                                <button type="button" class="main-btn primary-btn btn-hover text-center" id="confirmBulkApproval">승인</button>
+                                <button type="button" class="main-btn primary-btn btn-hover text-center" id="confirmApproval">승인</button>
                             </div>
                         </div>
                     </div>
@@ -358,33 +232,8 @@
         });
     });
 
-    const outboundDetails = [
-        <c:forEach var="detail" items="${outboundDetailList}" varStatus="loop">
-        {
-            outboundDetailCode: '${detail.outboundDetailCode}',
-            quantity: '${detail.quantity}',
-            outboundCode: '${detail.outboundCode}',
-            productCode: `${detail.productCode}`,
-        }<c:if test="${!loop.last}">,</c:if>
-        </c:forEach>
-    ];
-
 
     $(document).ready(function() {
-        // 1. 더미 데이터 정의 (출고상태) - 제거
-        // const dummyoutboundCategories = [
-        //     { "id": "출고대기", "name": "출고대기" },
-        //     { "id": "출고완료", "name": "출고완료" },
-        // ];
-
-        // 2. 원본 필터 영역에 출고상태 옵션 채우기 - 제거
-        // var $midSelect = $('#myCustomFilters #outboundCategories');
-        // $.each(dummyoutboundCategories, function(index, item) {
-        //     $midSelect.append($('<option>', {
-        //         value: item.id,
-        //         text: item.name
-        //     }));
-        // });
 
         // 5. DataTable 초기화 (dom 옵션에 사용자 정의 영역 포함)
         var table = $('#datatable').DataTable({
@@ -472,8 +321,6 @@
         $clone.find('#btnBulkApprove').remove();
         $('div.myFilterArea').html($clone.html());
 
-        // 기존의 동적 추가 코드 제거
-        // $('.dataTables_length').after(...) 부분 삭제
 
         // select 태그 감싸는 구조 적용
         $('.dataTables_length select').each(function() {
@@ -483,203 +330,11 @@
             }
         });
 
-        // 6-1. 이벤트 위임 방식으로 변경된 ID에 새롭게 바인딩 - 제거
-        // $('body').on('change', '#outboundCategories_clone', function() {
-        //     $('#outboundSubCategories_clone').val('');
-        //     table.draw();
-        // });
-
-        // $('body').on('click', '#resetFilterBtn', function () {
-        //     const table = $('#datatable').DataTable();
-
-        //     table.search('').columns().search('');
-
-        //     $('#outboundCategories_clone, #outboundDateInput_clone').val('');
-
-        //     table.order([[0, 'asc']]);
-        //     table.draw();
-        // });
-
-        // 7. 필터 이벤트: 드롭다운 변경 시 테이블 필터링 - 제거
-        // $('#outboundCategories, #outboundDateInput').on('change keyup', function() {
-        //     table.draw();
-        // });
-
-        // 7-1. (7번 함수에서 각각이 변경될 때마다) 필터링 함수도 변경된 ID값을 기준으로 수정 - 제거
-        // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        //     const selectedOutbound = $('#outboundCategories_clone').val();
-        //     const categoryOutbound = data[2]; // 출고상태를 기준으로
-
-        //     // 일부 포함에도 검색
-        //     if (selectedOutbound && !categoryOutbound.includes(selectedOutbound)) {
-        //         return false;
-        //     }
-
-        //     return true;
-        // });
-
-
-        // 모달 열릴 때마다 목록 갱신되게 하면 좋아
+        // 모달 열릴 때마다 목록 갱신
         $('#outboundAddModal').on('show.bs.modal', function () {
             populateManagerDropdown();
         });
 
-
-        // 페이지 전체에서 한 번만 실행
-        $('body').on('click', '.btn-approve', function () {
-            const outboundCode = $(this).data('outbound-code'); // 버튼에서 코드 가져오기
-            console.log('✅ 선택된 outboundCode:', outboundCode);
-
-            const outboundDate = $(this).data('outbound-date');
-
-            // server에서 내려받은 전체 리스트에서 코드로 필터링
-            const filteredDetails = outboundDetails.filter(detail => detail.outboundCode === outboundCode);
-            console.log('🔍 필터링된 상세내역:', filteredDetails);
-
-            // tbody 비우고 새로 채우기
-            const $tbody = $('#outboundDetailTableBody_approve');
-            $tbody.empty();
-
-            if (filteredDetails.length === 0) {
-                $tbody.append('<tr><td colspan="5">데이터가 없습니다.</td></tr>');
-            } else {
-                filteredDetails.forEach(detail => {
-                    const row = `
-                <tr>
-                 <td>` + detail.outboundDetailCode + `</td>
-                 <td>` + detail.quantity + `</td>
-                 <td>` + detail.outboundCode + `</td>
-                 <td>` + detail.productCode + `</td>
-                </tr>
-            `;
-                    $tbody.append(row);
-                });
-
-            }
-
-            $('#outboundDate_approve').val(outboundDate);
-            $('#modaloutboundCode').val(outboundCode);
-            console.log(outboundDate);
-
-            // 모달 열기
-            const modal = new bootstrap.Modal(document.getElementById('outboundDetailModal'));
-            modal.show();
-        });
-
-
-
-        /*$('#outboundEditModal').on('shown.bs.modal', function () {
-            const today = new Date();
-            console.log(today);
-
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0'); // 반드시 +1 필요
-            const dd = String(today.getDate()).padStart(2, '0');      // 0으로 시작되게 패딩
-
-            const minDate = ``+yyyy+`-`+mm+`-`+dd+``;
-
-            console.log('✅ 오늘 날짜 (minDate):', minDate); // 여기서 값 확인
-            $('#outboundDate').attr('min', minDate);
-        });
-
-
-        // 수정
-        $('body').on('click', '.btn-edit', function () {
-            const outboundCode = $(this).data('outbound-code'); // 버튼에서 코드 가져오기
-            console.log('✅ 선택된 outboundCode:', outboundCode);
-
-            const outboundDate = $(this).data('outbound-date');
-
-            //출고 날짜 선택 안 하면 return
-            if (!outboundDate) {
-                alert('출고 날짜를 선택해주세요.');
-                return;
-            }
-
-            // server에서 내려받은 전체 리스트에서 코드로 필터링
-            const filteredDetails = outboundDetails.filter(detail => detail.outboundCode === outboundCode);
-            console.log('🔍 필터링된 상세내역:', filteredDetails);
-
-            // tbody 비우고 새로 채우기
-            const $tbody = $('#outboundDetailTableBody_edit');
-            $tbody.empty();
-
-            if (filteredDetails.length === 0) {
-                $tbody.append('<tr><td colspan="5">데이터가 없습니다.</td></tr>');
-            } else {
-                filteredDetails.forEach((detail, index) => {
-                    const row = `
-                <tr>
-                     <td>` + detail.productCode + `</td>
-                     <td>` + detail.productName + `</td>
-                     <td>` + detail.productPrice + `</td>
-                     <td>` + detail.storedType + `</td>
-                     <td>
-                        <input type="hidden" name="items[`+index+`].outboundCode" value=`+detail.outboundCode+` />
-                        <input type="hidden" name="items[`+index+`].productCode" value=`+detail.productCode+` />
-                        <input type="number" name="items[`+index+`].quantity" class="form-control quantity-input"
-                               value= ` + detail.quantity + ` + step = "100" min="0" required />
-                    </td>
-                </tr>
-            `;
-                    $tbody.append(row);
-                });
-
-            }
-
-            $('#outboundDate').val(outboundDate);
-            $('#modaloutboundCode').val(outboundCode);
-            console.log(outboundDate);
-
-            // 모달 열기
-            const modal = new bootstrap.Modal(document.getElementById('outboundEditModal'));
-            modal.show();
-        });
-
-
-
-        //삭제
-
-        $('body').on('click', '.btn-delete', function () {
-            const outboundCode = $(this).data('outbound-code'); // 버튼에서 코드 가져오기
-            console.log('✅ 선택된 outboundCode:', outboundCode);
-
-            const outboundDate = $(this).data('outbound-date');
-
-            // server에서 내려받은 전체 리스트에서 코드로 필터링
-            const filteredDetails = outboundDetails.filter(detail => detail.outboundCode === outboundCode);
-            console.log('🔍 필터링된 상세내역:', filteredDetails);
-
-            // tbody 비우고 새로 채우기
-            const $tbody = $('#outboundDetailTableBody_delete');
-            $tbody.empty();
-
-            if (filteredDetails.length === 0) {
-                $tbody.append('<tr><td colspan="5">데이터가 없습니다.</td></tr>');
-            } else {
-                filteredDetails.forEach(detail => {
-                    const row = `
-                <tr>
-                 <td>` + detail.productCode + `</td>
-                 <td>` + detail.productName + `</td>
-                 <td>` + detail.productPrice + `</td>
-                 <td>` + detail.storedType + `</td>
-                 <td>` + detail.quantity + `</td>
-                </tr>
-            `;
-                    $tbody.append(row);
-                });
-
-            }
-
-            $('#outboundDate_delete').val(outboundDate);
-            $('#modaloutboundCode_delete').val(outboundCode);
-            console.log(outboundDate);
-
-            // 모달 열기
-            const modal = new bootstrap.Modal(document.getElementById('outboundDeleteModal'));
-            modal.show();
-        });*/
 
         // "Select All" 체크박스 이벤트
         $('#select-all').on('click', function() {
@@ -698,15 +353,15 @@
             $('#select-all').prop('checked', false);
         });
 
-        // 승인 버튼 클릭 시 (ID 변경)
+        // 승인 버튼 클릭 시
         $('#btnBulkApprove_clone').on('click', function (e) {
             const selectedData = [];
             $('#datatable tbody input.row-checkbox:checked').each(function () {
                 const $tr = $(this).closest('tr');
                 const rowData = {
                     outboundCode: $tr.find('td').eq(1).text().trim(),
-                    outboundDate: $tr.find('td').eq(2).text().trim(),
-                    outboundStatus: $tr.find('td').eq(3).text().trim()
+                    productName: $tr.find('td').eq(4).text().trim(),
+                    quantity: $tr.find('td').eq(5).text().trim()
                 };
                 selectedData.push(rowData);
             });
@@ -717,25 +372,25 @@
             }
 
             // 출고 요청 목록을 <ul> 안에 추가
-            const $list = $('#bulkApprovalList');
+            const $list = $('#approvalList');
             $list.empty();
 
             selectedData.forEach((item) => {
                 const li = `
                     <li class="list-group-item d-flex justify-content-between align-items-center" data-outbound-code="`+ item.outboundCode +`">
-                        <span>` + item.outboundCode + ` (` + item.outboundDate + `)</span>
-                        <span class="badge bg-secondary">` + item.outboundStatus + `</span>
+                        <span>` + item.outboundCode + ` (` + item.productName + `)</span>
+                        <span class="badge bg-secondary">` + item.quantity + `개 </span>
                     </li>
                 `;
                 $list.append(li);
             });
 
             // 승인 확인 버튼 클릭 시: form에 hidden input 추가하고 전송
-            $('#confirmBulkApproval').off('click').on('click', function (e) {
-                const $form = $('#bulkApproveForm');
+            $('#confirmApproval').off('click').on('click', function (e) {
+                const $form = $('#outboundApproveForm');
                 $form.find('input[name="outboundCodeList"]').remove();
 
-                $('#bulkApprovalList .list-group-item').each(function () {
+                $('#approvalList .list-group-item').each(function () {
                     const outboundCode = $(this).data('outbound-code');
                     const input = `<input type="hidden" name="outboundCodeList" value="` + outboundCode + `" />`;
                     $form.append(input);
@@ -748,7 +403,7 @@
             });
 
             // 모달 열기
-            const modal = new bootstrap.Modal(document.getElementById('bulkApproveModal'));
+            const modal = new bootstrap.Modal(document.getElementById('approveModal'));
             modal.show();
         });
     });
