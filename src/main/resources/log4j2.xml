@@ -7,9 +7,20 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="file" fileName="./logs/file/sample.log" append="false">
+        <!-- 단순 파일 로그 (이어쓰기) -->
+        <File name="file" fileName="/opt/tomcat/logs/sample.log" append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
+
+        <!-- 날짜별 로그 분리 -->
+        <RollingFile name="rollingFile"
+                     fileName="/opt/tomcat/logs/app.log"
+                     filePattern="/opt/tomcat/logs/app-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
     </Appenders>
 
     <!-- Logger 설정 -->
@@ -20,8 +31,12 @@
         <Logger name="org.zerock" level="TRACE" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
+
+        <!-- Root 로그: 콘솔 + 단순 파일 + 날짜별 파일 -->
         <Root level="INFO">
             <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+            <AppenderRef ref="rollingFile"/>
         </Root>
     </Loggers>
 
