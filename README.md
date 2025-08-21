@@ -4,18 +4,19 @@
     
 
 
+# 프로젝트 소개
 
-<div align="left">
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 프로젝트 소개 </h2>
-    <div style="font-weight: 700; font-size: 15px; text-align: center; color: #282d33;">
-        <h3> Prokin' Donuts WMS</h3>
-        <p>건강한 도넛 브랜드 ‘Prokin Donuts’을 창설하고, 창고 통합 관리를 위한 WMS(Warehouse Management System)의 web기반 시스템을 개발합니다.</p>
-        <h2><strong>👉AWS 기반 배포 완료: </strong>
-          <a href="http://prokin.co.kr/" style="text-decoration: none; color: #282d33;">
-    <strong>http://prokin.co.kr/</strong>
-  </a></h2> 
-    </div>
-</div>
+### Prokin' Donuts WMS
+
+건강한 도넛 브랜드 ‘Prokin Donuts’을 창설하고,  
+창고 통합 관리를 위한 WMS(Web 기반 시스템)를 개발합니다.
+
+### 👉 AWS 기반 배포 완료 http://prokin.co.kr
+
+> **TEST ID / PASSWORD**
+>- 본사 관리자: `kya9505` / `kya9505!`
+>- 창고 관리자: `cmk1031` / `cmk1031!`
+>- 가맹점주: `psns0122` / `psns0122!`
 
 <br>
 
